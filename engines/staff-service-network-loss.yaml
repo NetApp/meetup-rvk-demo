@@ -1,0 +1,37 @@
+apiVersion: litmuschaos.io/v1alpha1
+kind: ChaosEngine
+metadata:
+  name: staff-service-network-loss
+  namespace: default
+spec:
+  jobCleanUpPolicy: 'delete'
+  annotationCheck: 'false'
+  engineState: 'active'
+  auxiliaryAppInfo: ''
+  monitoring: true
+  appinfo:
+    appns: 'default'
+    applabel: 'app=staff-service'
+    appkind: 'deployment'
+  chaosServiceAccount: pod-network-loss-sa
+  experiments:
+    - name: pod-network-loss
+      spec:
+        components:
+          env:
+            #Container name where chaos has to be injected
+            - name: TARGET_CONTAINER
+              value: 'staff-service'
+
+            - name: LIB_IMAGE
+              value: 'gaiaadm/pumba:0.6.5'
+
+            #Network interface inside target container
+            - name: NETWORK_INTERFACE
+              value: 'eth0'
+
+            - name: NETWORK_PACKET_LOSS_PERCENTAGE
+              value: '100'
+
+            - name: TOTAL_CHAOS_DURATION
+              value: '60' # in seconds

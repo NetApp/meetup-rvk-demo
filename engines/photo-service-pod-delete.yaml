@@ -1,0 +1,36 @@
+apiVersion: litmuschaos.io/v1alpha1
+kind: ChaosEngine
+metadata:
+  name: photo-service-pod-delete
+  namespace: default  
+spec:
+  appinfo:
+    appns: 'default'
+    applabel: 'app=photo-service'
+    appkind: 'deployment'
+  annotationCheck: 'false'
+  engineState: 'active'
+  auxiliaryAppInfo: 'default:app=staff-service'
+  chaosServiceAccount: pod-delete-sa
+  monitoring: true
+  # It can be delete/retain
+  jobCleanUpPolicy: 'delete'
+  experiments:
+    - name: pod-delete
+      spec:
+        components:
+          experimentAnnotation:
+          env:
+            # set chaos duration (in sec) as desired
+            - name: TOTAL_CHAOS_DURATION
+              value: '30'
+            # set chaos interval (in sec) as desired
+            - name: CHAOS_INTERVAL
+              value: '10'
+            # pod failures without '--force' & default terminationGracePeriodSeconds
+            - name: FORCE
+              value: 'false'
+            # The amount of pods thatshould be deleted 
+            - name: KILL_COUNT
+              value: '1'
+            
