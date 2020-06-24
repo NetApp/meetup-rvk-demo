@@ -27,33 +27,37 @@ Observe the result
 
 Schedule 
 
-
-
-
-
-
-
-
-
-
-
+## Stack 
 The monkey stack
-A well designed chaos ecosystem could include more monkeys than just the one that breaks instances.  Netflix had a (now retired) set of tools called Simian Army. The basic ideas of the simian army are still highly relevant 
+A well designed chaos ecosystem could include more monkeys than just the one that breaks instances.  
+Netflix had a (now retired) set of tools called Simian Army. The basic ideas of the simian army are still highly relevant 
 
-Janitor monkey 
+* Janitor monkey 
 
 A robot that will ruthlessly clean up unused resources  
 
-Conformity monkey 
+* Conformity monkey 
 
 This robot will tear down any stack/resource that does not adhere to preset architectural rules, for example a cluster that has its admin interface exposed to the internet.  
 
-Security Monkey 
+* Security Monkey 
 
 Whitehat pentest your own systems 
 
-Latency monkey 
+* Latency monkey 
 
+### Preliminary monkey stack at NetApp
+Litmus: for k8s   
+Chaostookit: for infrastructure   
+Argo and ArgoCD: for delivery  (Alpha)   
+Grafana loki: for log aggregation with fluentbit (memory issues with promtail we use the still experimental boltdb for storage )     
+     Index: Amazon dynamodb - Cassandra - Bigtable  we use boltDB       Storage: all above s3 filesystem , we use filesystem   
+     Prometheus+Grafana      Blackbox exporter and Pushgateway as litmus engines are scheduled jobs  
+Linkerd: for service mesh  
+Weavescope: for graphical cluster representation   
+
+
+## Use cases
 One of the trickier issues to identify is often when network connectivity starts behaving in an unexpected way. This would be a way of identifying how a system behaves during 
 
 Customer induced retry storm 
