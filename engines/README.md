@@ -34,13 +34,13 @@ In the last community meetup it was announced that ansible is going to be phased
 apiVersion: litmuschaos.io/v1alpha1
 kind: ChaosEngine
 metadata:
-  name: meteorqloud-chaos
+  name: nginx-chaos
   namespace: default
 spec:
   # Mandatory: Select resource to experiment on 
   appinfo:
     appns: 'default'
-    applabel: 'app=meteorqloud'
+    applabel: 'app=nginx'
     appkind: 'deployment'
   # Optional: Annotations are recommended to control blast radius. Default is true 
   annotationCheck: 'false'
