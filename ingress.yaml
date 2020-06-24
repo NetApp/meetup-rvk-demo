@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: fleetman-webapp
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+spec:
+  tls:
+  - hosts:
+    - meetup-webapp.aws.d.gq.is
+    secretName: meetup-tls
+  rules:
+    - host: meetup-webapp.aws.d.gq.i
+      http:
+        paths:
+        - backend:
+            serviceName: fleetman-webapp
+            servicePort: 3000
